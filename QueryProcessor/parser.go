@@ -19,8 +19,6 @@ var keywords = map[string]bool{
 	"DELETE":   true,
 	"INT":      true,
 	"STRING":   true,
-	"FLOAT":    true,
-	"BOOLEAN":  true,
 }
 
 func isSymbol(c byte) bool {
