@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sdb/QueryProcessor"
 	"strings"
 )
 
@@ -23,6 +24,11 @@ func main() {
 		if cmd == "" {
 			continue
 		}
-		fmt.Println("unknown command:", cmd)
+		stmt, err := queryprocessor.Parse(cmd)
+		if err != nil {
+			fmt.Println("error:", err)
+			continue
+		}
+		fmt.Printf("parsed: %+v\n", stmt)
 	}
 }
