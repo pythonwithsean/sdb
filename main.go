@@ -4,7 +4,8 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sdb/QueryProcessor"
+	queryprocessor "sdb/QueryProcessor"
+	storageengine "sdb/StorageEngine"
 	"strings"
 )
 
@@ -29,6 +30,12 @@ func main() {
 			fmt.Println("error:", err)
 			continue
 		}
-		fmt.Printf("parsed: %+v\n", stmt)
+		err = storageengine.ExecuteStatement(stmt)
+		if err != nil {
+			fmt.Println("error:", err)
+			continue
+		}
+		fmt.Printf("ok\n")
+
 	}
 }

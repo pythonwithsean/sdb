@@ -64,6 +64,17 @@ func (p *Parser) atEnd() bool {
 	return p.pos >= len(p.tokens)
 }
 
+type Statement interface {
+	statement()
+}
+
+func (*CreateDatabase) statement() {}
+func (*CreateTable) statement()    {}
+func (*Select) statement()         {}
+func (*Insert) statement()         {}
+func (*Update) statement()         {}
+func (*Delete) statement()         {}
+
 func (p *Parser) expect(t TokenType, value string) error {
 	if p.atEnd() {
 		return fmt.Errorf("expected %q, got end of input", value)
@@ -318,7 +329,7 @@ func (p *Parser) parseDelete() (*Delete, error) {
 	return del, nil
 }
 
-func Parse(input string) (interface{}, error) {
+func Parse(input string) (Statement, error) {
 	tokens := Tokenize(input)
 	for _, t := range tokens {
 		if len(t.Value) > 0 && t.Value[0] == '"' && (len(t.Value) < 2 || t.Value[len(t.Value)-1] != '"') {
