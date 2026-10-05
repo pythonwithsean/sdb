@@ -162,6 +162,9 @@ func (p *Parser) parseCreateTable() (*CreateTable, error) {
 			return nil, fmt.Errorf("expected column type")
 		}
 		colType := p.current().Value
+		if p.current().Type != KEYWORD || (colType != "INT" && colType != "STRING") {
+			return nil, fmt.Errorf("expected column type INT or STRING, got %q", colType)
+		}
 		p.advance()
 		colName, err := p.expectIdentifier()
 		if err != nil {

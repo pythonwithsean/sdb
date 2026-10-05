@@ -1,0 +1,14 @@
+database header:
+[name_size][name]
+
+table1 header:
+[table_name_size][table_name][column_count][max]
+[column1_name_size][column1_name][column1_type]
+[column2_name_size][column2_name][column2_type]
+[column3_name_size][column3_name][column3_type]
+
+table2 header:
+[table_name_size][table_name][column_count]
+[column1_name_size][column1_name][column1_type]
+[column2_name_size][column2_name][column2_type]
+[column3_name_size][column3_name][column3_type]
