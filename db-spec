@@ -1,14 +1,21 @@
-database header:
-[name_size][name]
+All integers use little-endian byte order.
 
-table1 header:
-[table_name_size][table_name][column_count][max]
-[column1_name_size][column1_name][column1_type]
-[column2_name_size][column2_name][column2_type]
-[column3_name_size][column3_name][column3_type]
+Database header:
+[name_size: uint8, 8 bits, 1 byte, maximum 255]
+[name: name_size bytes, maximum 255 bytes]
 
-table2 header:
-[table_name_size][table_name][column_count]
-[column1_name_size][column1_name][column1_type]
-[column2_name_size][column2_name][column2_type]
-[column3_name_size][column3_name][column3_type]
+Table header (repeated for each table):
+[table_name_size: uint8, 8 bits, 1 byte, maximum 255]
+[table_name: table_name_size bytes, maximum 255 bytes]
+[row_count: uint32, 32 bits, 4 bytes, maximum 4,294,967,295]
+[column_count: uint8, 8 bits, 1 byte, maximum 255]
+[max_row_size: uint16, 16 bits, 2 bytes, maximum 65,535]
+
+Column header (repeated column_count times):
+[column_name_size: uint8, 8 bits, 1 byte, maximum 255]
+[column_name: column_name_size bytes, maximum 255 bytes]
+[column_type: uint8, 8 bits, 1 byte, maximum type ID 255]
+
+Column type IDs:
+1 = INT
+2 = STRING
